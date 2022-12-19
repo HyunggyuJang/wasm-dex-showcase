@@ -1,4 +1,4 @@
-	type Owner @entity {
+type Owner @entity {
   id: ID!
   balance: BigInt!
 }
@@ -11,4 +11,3 @@ type Transfer @entity {
   timestamp: DateTime!
   block: Int!
 }
- 

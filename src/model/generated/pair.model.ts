@@ -11,6 +11,6 @@ export class Pair {
   @PrimaryColumn_()
   id!: string
 
-  @Column_("numeric", {transformer: marshal.bigdecimalTransformer, nullable: false})
-  volumeUSD!: BigDecimal
+  @Column_("numeric", {transformer: marshal.bigdecimalTransformer, nullable: true})
+  volumeUSD!: BigDecimal | undefined | null
 }

@@ -1,10 +1,11 @@
 type Pair @entity {
   id: ID!
-  volumeUSD: BigDecimal!
+  volumeUSD: BigDecimal
 }
 
 type Swap @entity {
   id: ID!
+  pair: Pair!
   sender: String!
   to: String!
   amount0In: BigInt!

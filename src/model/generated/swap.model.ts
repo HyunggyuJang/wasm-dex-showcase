@@ -1,5 +1,6 @@
-import {Entity as Entity_, Column as Column_, PrimaryColumn as PrimaryColumn_} from "typeorm"
+import {Entity as Entity_, Column as Column_, PrimaryColumn as PrimaryColumn_, ManyToOne as ManyToOne_, Index as Index_} from "typeorm"
 import * as marshal from "./marshal"
+import {Pair} from "./pair.model"
 
 @Entity_()
 export class Swap {
@@ -9,6 +10,10 @@ export class Swap {
 
   @PrimaryColumn_()
   id!: string
+
+  @Index_()
+  @ManyToOne_(() => Pair, {nullable: true})
+  pair!: Pair
 
   @Column_("text", {nullable: false})
   sender!: string

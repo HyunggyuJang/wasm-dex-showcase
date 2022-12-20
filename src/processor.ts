@@ -4,9 +4,19 @@ import {BatchContext, BatchProcessorItem, SubstrateBatchProcessor} from "@subsqu
 import {Store, TypeormDatabase} from "@subsquid/typeorm-store"
 import * as pair from "./abi/pair_contract"
 import {Swap} from "./model/generated"
+import { decodeAddress } from '@polkadot/keyring';
  
- 
-const CONTRACT_ADDRESS = 'XwtTDZimFantJgQeGaVeVHS5hoYon5kfnibAbSq8pEt8FwT'
+
+function toEvmEncodedNativeAddress(userAddress: string): string {
+  const pubKey = Buffer.from(
+    new Uint8Array([... decodeAddress(userAddress)]),
+  ).toString('hex');
+  return '0x' + pubKey;
+}
+
+const CONTRACT_ADDRESS = toEvmEncodedNativeAddress('XwtTDZimFantJgQeGaVeVHS5hoYon5kfnibAbSq8pEt8FwT')
+const CONTRACT_ADDRESS_TEST = '0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72'
+console.log(toEvmEncodedNativeAddress(ss58.codec(5).encode(decodeAddress(CONTRACT_ADDRESS_TEST))) === CONTRACT_ADDRESS_TEST)
 
  
 const processor = new SubstrateBatchProcessor()

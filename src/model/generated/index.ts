@@ -1,2 +1,2 @@
-export * from "./owner.model"
-export * from "./transfer.model"
+export * from "./pair.model"
+export * from "./swap.model"

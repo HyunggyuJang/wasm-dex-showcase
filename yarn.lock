@@ -1044,6 +1044,13 @@
     node-fetch "^2"
     semver "^7.3.5"
 
+"@subsquid/big-decimal@^0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@subsquid/big-decimal/-/big-decimal-0.0.0.tgz#8efdb246f026ede0802ef00ef7901eb7b3ae3d34"
+  integrity sha512-bdsamXR+wyhaBw7KnWugle9BKkAyrvGSb4cEXf0q0GeKeKZJ/ADkakwT/MuQ4mDQLOxjiin3ZSDJkv7vy4Uvuw==
+  dependencies:
+    big.js "~6.2.1"
+
 "@subsquid/cli@0.7.1":
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/@subsquid/cli/-/cli-0.7.1.tgz#f3faba206db16084c5da1b907750af91f1b3df36"
@@ -1070,11 +1077,6 @@
     "@subsquid/util-internal" "^1.0.0"
     "@subsquid/util-internal-code-printer" "^0.0.2"
     commander "^9.3.0"
-
-"@subsquid/graphiql-console@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@subsquid/graphiql-console/-/graphiql-console-0.2.0.tgz#53edcc562342735e800361bb3892c54388b2e717"
-  integrity sha512-Wh2Oxi9JkK79Y728yDEeY7JelcY1cGiQTbzVIRMFLT2tjkkoQ69goAGXdh9QmM/ANAVrHQkBUNJOLd5oAg//oQ==
 
 "@subsquid/graphiql-console@^0.3.0":
   version "0.3.0"
@@ -1148,25 +1150,6 @@
     "@subsquid/util-internal-hex" "^0.0.1"
     "@subsquid/util-internal-json" "^0.2.0"
     supports-color "^8.1.1"
-
-"@subsquid/openreader@^1.0.1":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@subsquid/openreader/-/openreader-1.0.3.tgz#dc8a5017328b40746d8810d0396229b6f85b0221"
-  integrity sha512-mf12hO47I6BuU/x9dyYMW526R5if2OTGgHFw2ANRkjSIVVa0x7wjKpXRoVVY/VSAU2PKHEaSzhVSM8pTfGTK0g==
-  dependencies:
-    "@graphql-tools/merge" "^8"
-    "@graphql-tools/utils" "^8"
-    "@subsquid/graphiql-console" "^0.2.0"
-    "@subsquid/util-internal" "^0.0.1"
-    "@subsquid/util-internal-code-printer" "^0.0.2"
-    "@subsquid/util-internal-hex" "^0.0.1"
-    "@subsquid/util-naming" "^0.0.1"
-    apollo-server-core "^3.9.0"
-    apollo-server-express "^3.9.0"
-    express "^4.18.1"
-    graphql "^15.8.0"
-    graphql-parse-resolve-info "^4.12.3"
-    pg "^8.7.3"
 
 "@subsquid/openreader@^3.1.0":
   version "3.1.4"
@@ -1309,24 +1292,17 @@
     ajv "^8.11.0"
     commander "^9.3.0"
 
-"@subsquid/typeorm-codegen@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@subsquid/typeorm-codegen/-/typeorm-codegen-0.0.2.tgz#ba2d5ebbb1749157f525b984749e2af85a847402"
-  integrity sha512-JgqEsxrGDQ3XVYm9v9mHcQfPH+DPdLs5nHSzDZf9TsMwMBnSvuTN+lku3i/sQ/Atz67rhOIDs2GOqWnzppnyjg==
+"@subsquid/typeorm-codegen@0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@subsquid/typeorm-codegen/-/typeorm-codegen-0.2.1.tgz#d08289e274cc66dba467df5041ee7efb98e89784"
+  integrity sha512-b1gcJo1cmnE6OH4oveXSlpwd25O7xuoWv4gADMdIPG2lFupqH/0OW9E/4Qzeyv/iJ/JVxfYP58LeKOrFR+Zduw==
   dependencies:
-    "@subsquid/openreader" "^1.0.1"
-    "@subsquid/typeorm-config" "^1.1.0"
+    "@subsquid/openreader" "^3.1.0"
+    "@subsquid/typeorm-config" "^2.0.0"
     "@subsquid/util-internal" "^0.0.1"
-    "@subsquid/util-internal-code-printer" "^0.0.1"
+    "@subsquid/util-internal-code-printer" "^0.0.2"
     "@subsquid/util-naming" "^0.0.1"
     commander "^9.3.0"
-
-"@subsquid/typeorm-config@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@subsquid/typeorm-config/-/typeorm-config-1.1.0.tgz#bdd58e929b4931fce349f7c65d024a88e9d13c17"
-  integrity sha512-7qIOlpodIvIhrm3pudu2jpzMXx3aCxj39FPMV38NPzbft5AEKTmfRJPPSzBDbsYnz+WFJECDkLEb2vnFUsfuDw==
-  dependencies:
-    "@subsquid/util-naming" "^0.0.1"
 
 "@subsquid/typeorm-config@^2.0.0":
   version "2.0.0"
@@ -1358,11 +1334,6 @@
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/@subsquid/util-internal-binary-heap/-/util-internal-binary-heap-0.0.0.tgz#527da65185ca666a516431a02cafcdcc93529156"
   integrity sha512-eVtdf442+L10G4lgSHCcxgNzYEcrdZ3WKy7Y7CGkhKLJhKuOlgDtEwklZmh1/lM+37AQn9XnX/VpxTaJ2vA2sg==
-
-"@subsquid/util-internal-code-printer@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@subsquid/util-internal-code-printer/-/util-internal-code-printer-0.0.1.tgz#df0c22c67e214189fa63fb2f8fc57bc1ed5e499f"
-  integrity sha512-7e4uXvMpuqUs5hKz2y7abNOjm0sXBjUVQuE1UZYylZ+tl+kNXge167dqDqaGC4sN2Pz9QLLMujiG94Sw23Tf7w==
 
 "@subsquid/util-internal-code-printer@^0.0.2":
   version "0.0.2"
@@ -2075,6 +2046,11 @@ before-after-hook@^2.2.0:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/before-after-hook/-/before-after-hook-2.2.3.tgz#c51e809c81a4e354084422b9b26bad88249c517c"
   integrity sha512-NzUnlZexiaH/46WDhANlyR2bXRopNg4F/zuSA3OpZnllCUgRaOF2znDioDWrmbNVsuZk6l9pMquQB38cfBZwkQ==
+
+big.js@~6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/big.js/-/big.js-6.2.1.tgz#7205ce763efb17c2e41f26f121c420c6a7c2744f"
+  integrity sha512-bCtHMwL9LeDIozFn+oNhhFoq+yQ3BNdnsLSASUxLciOb1vgvpHsIO1dsENiGMgbb4SkP5TrzWzRiLddn8ahVOQ==
 
 bin-links@^3.0.0:
   version "3.0.3"

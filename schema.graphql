@@ -1,13 +1,16 @@
-type Owner @entity {
+type Pair @entity {
   id: ID!
-  balance: BigInt!
+  volumeUSD: BigDecimal!
 }
- 
-type Transfer @entity {
+
+type Swap @entity {
   id: ID!
-  from: Owner
-  to: Owner
-  amount: BigInt!
+  sender: String!
+  to: String!
+  amount0In: BigInt!
+  amount1In: BigInt!
+  amount0Out: BigInt!
+  amount1Out: BigInt!
   timestamp: DateTime!
   block: Int!
 }

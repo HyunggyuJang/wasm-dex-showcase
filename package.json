@@ -25,10 +25,11 @@
     "typeorm": "0.3.9"
   },
   "devDependencies": {
+    "@subsquid/big-decimal": "^0.0.0",
     "@subsquid/ink-typegen": "0.0.5",
     "@subsquid/substrate-metadata-explorer": "^1.0.3",
     "@subsquid/substrate-typegen": "^1.0.2",
-    "@subsquid/typeorm-codegen": "^0.0.2",
+    "@subsquid/typeorm-codegen": "0.2.1",
     "@types/node": "^17.0.23",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "eslint": "^7.32.0",

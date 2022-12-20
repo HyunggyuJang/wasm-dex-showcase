@@ -2,13 +2,12 @@ import { lookupArchive } from "@subsquid/archive-registry"
 import * as ss58 from "@subsquid/ss58"
 import {BatchContext, BatchProcessorItem, SubstrateBatchProcessor} from "@subsquid/substrate-processor"
 import {Store, TypeormDatabase} from "@subsquid/typeorm-store"
-import {In} from "typeorm"
-import * as erc20 from "./abi/erc20"
-import {Owner, Transfer} from "./model"
+import * as pair from "./abi/pair_contract"
+import {Swap} from "./model/generated"
  
  
-const CONTRACT_ADDRESS = '0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72'
- 
+const CONTRACT_ADDRESS = 'XwtTDZimFantJgQeGaVeVHS5hoYon5kfnibAbSq8pEt8FwT'
+
  
 const processor = new SubstrateBatchProcessor()
     .setDataSource({
@@ -26,80 +25,55 @@ type Ctx = BatchContext<Store, Item>
  
  
 processor.run(new TypeormDatabase(), async ctx => {
-    const txs = extractTransferRecords(ctx)
- 
-    const ownerIds = new Set<string>()
-    txs.forEach(tx => {
-        if (tx.from) {
-            ownerIds.add(tx.from)
-        }
-        if (tx.to) {
-            ownerIds.add(tx.to)
-        }
-    })
- 
-    const ownersMap = await ctx.store.findBy(Owner, {
-        id: In([...ownerIds])
-    }).then(owners => {
-        return new Map(owners.map(owner => [owner.id, owner]))
-    })
- 
-    const transfers = txs.map(tx => {
-        const transfer = new Transfer({
+    const txs = extractSwapRecords(ctx)
+
+    const swaps = txs.map(tx => {
+        const swap = new Swap({
             id: tx.id,
-            amount: tx.amount,
+            sender: tx.sender,
+            to: tx.to,
+            amount0In: tx.amount0In,
+            amount1In: tx.amount1In,
+            amount0Out: tx.amount0Out,
+            amount1Out: tx.amount1Out,
+            timestamp: tx.timestamp,
             block: tx.block,
-            timestamp: tx.timestamp
         })
- 
-        if (tx.from) {
-            transfer.from = ownersMap.get(tx.from)
-            if (transfer.from == null) {
-                transfer.from = new Owner({id: tx.from, balance: 0n})
-                ownersMap.set(tx.from, transfer.from)
-            }
-            transfer.from.balance -= tx.amount
-        }
- 
-        if (tx.to) {
-            transfer.to = ownersMap.get(tx.to)
-            if (transfer.to == null) {
-                transfer.to = new Owner({id: tx.to, balance: 0n})
-                ownersMap.set(tx.to, transfer.to)
-            }
-            transfer.to.balance += tx.amount
-        }
- 
-        return transfer
+        return swap
     })
  
-    await ctx.store.save([...ownersMap.values()])
-    await ctx.store.insert(transfers)
+    await ctx.store.insert(swaps)
 })
  
  
-interface TransferRecord {
+interface SwapRecord {
     id: string
-    from?: string
-    to?: string
-    amount: bigint
+    sender: string
+    to: string
+    amount0In: bigint
+    amount1In: bigint
+    amount0Out: bigint
+    amount1Out: bigint
     block: number
     timestamp: Date
 }
  
  
-function extractTransferRecords(ctx: Ctx): TransferRecord[] {
-    const records: TransferRecord[] = []
+function extractSwapRecords(ctx: Ctx): SwapRecord[] {
+    const records: SwapRecord[] = []
     for (const block of ctx.blocks) {
         for (const item of block.items) {
             if (item.name === 'Contracts.ContractEmitted' && item.event.args.contract === CONTRACT_ADDRESS) {
-                const event = erc20.decodeEvent(item.event.args.data)
-                if (event.__kind === 'Transfer') {
+                const event = pair.decodeEvent(item.event.args.data)
+                if (event.__kind === 'Swap') {
                     records.push({
                         id: item.event.id,
-                        from: event.from && ss58.codec(5).encode(event.from),
+                        sender: event.sender && ss58.codec(5).encode(event.sender),
                         to: event.to && ss58.codec(5).encode(event.to),
-                        amount: event.value,
+                        amount0In: event.amount0In,
+                        amount1In: event.amount1In,
+                        amount0Out: event.amount0Out,
+                        amount1Out: event.amount1Out,
                         block: block.header.height,
                         timestamp: new Date(block.header.timestamp)
                     })
@@ -109,4 +83,3 @@ function extractTransferRecords(ctx: Ctx): TransferRecord[] {
     }
     return records
 }
- 

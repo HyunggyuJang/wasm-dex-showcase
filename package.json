@@ -2,6 +2,7 @@
   "name": "kusama-balances",
   "private": true,
   "scripts": {
+    "update": "npx npm-check-updates --filter /subsquid/ --upgrade && npm i -f",
     "build": "rm -rf lib && tsc",
     "db:migrate": "npx squid-typeorm-migration apply",
     "processor:start": "node lib/processor.js",
@@ -15,7 +16,7 @@
     "@subsquid/cli": "0.7.1",
     "@subsquid/evm-typegen": "^1.3.0",
     "@subsquid/graphql-server": "3.2.0",
-    "@subsquid/ink-abi": "0.0.3",
+    "@subsquid/ink-abi": "^0.0.3",
     "@subsquid/ss58": "^0.1.1",
     "@subsquid/substrate-processor": "1.9.1",
     "@subsquid/typeorm-migration": "0.1.2",

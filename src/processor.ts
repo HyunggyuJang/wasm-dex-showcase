@@ -9,25 +9,24 @@ import { In } from "typeorm"
  
 
 function toEvmEncodedNativeAddress(userAddress: string): string {
-  const pubKey = Buffer.from(
-    new Uint8Array([... decodeAddress(userAddress)]),
-  ).toString('hex');
+  const pubKey = Buffer.from(decodeAddress(userAddress)).toString('hex');
   return '0x' + pubKey;
 }
 
+const FACTORY_ADDRESS = toEvmEncodedNativeAddress('YdcDo1kSQnJYWLrXQzzWWEJbuENwAEc1VUUW2ZK6CADGT1A')
 const contracts = [
     'X5qYnkRQqotpvmvNocsPssxio3CXbZncsBp48gjozTJM1FF',
     'XwtTDZimFantJgQeGaVeVHS5hoYon5kfnibAbSq8pEt8FwT',
     'XnfGh7yGPPcFYvb8vLhPxE4poohVFQLrLS8WncwfcboNXhW',
 ].map(toEvmEncodedNativeAddress)
-const CONTRACT_ADDRESS_TEST = '0x5207202c27b646ceeb294ce516d4334edafbd771f869215cb070ba51dd7e2c72'
-console.log(toEvmEncodedNativeAddress(ss58.codec(5).encode(decodeAddress(CONTRACT_ADDRESS_TEST))) === CONTRACT_ADDRESS_TEST)
 
  
 let processor = new SubstrateBatchProcessor()
     .setDataSource({
+        chain: 'wss://shibuya.public.blastapi.io',
         archive: lookupArchive("shibuya", { release: "FireSquid" })
     })
+    .addContractsContractEmitted(FACTORY_ADDRESS)
 
 contracts.forEach((contract) =>
     processor.addContractsContractEmitted(contract, {
